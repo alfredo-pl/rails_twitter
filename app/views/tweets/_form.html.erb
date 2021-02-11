@@ -12,13 +12,10 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :content %>
-    <%= form.text_field :content %>
+    <%= form.text_field :content , class:"form-control border border-light", placeholder:"What's happening?" , :required => true%>
   </div>
-
-  
-
-  <div class="actions">
-    <%= form.submit %>
+  <div><hr class="border border-1"></div>
+  <div class="actions d-flex justify-content-end">
+    <%= form.submit "Tweet", class:"btn btn-outline-info rounded-pill" %>
   </div>
 <% end %>
