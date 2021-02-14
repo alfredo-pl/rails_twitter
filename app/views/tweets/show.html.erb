@@ -4,7 +4,13 @@
   <strong>Content:</strong>
   <%= @tweet.content %>
 </p>
-
+<% pre_like = @tweet.likes.find { |like| like.user_id == current_user.id} %>
+<% if pre_like %>
+  <%= button_to 'Unlike', tweet_like_path(@tweet, pre_like), method: :delete %>
+<% else %>
+  <%= button_to 'Like', tweet_likes_path(@tweet), method: :post %>
+<% end %>
+<p><%= @tweet.likes.count %> <%= (@tweet.likes.count) == 1 ? 'Like' : 'Likes'%></p>
 <!--<p>
   <strong>User:</strong>
   <%= @tweet.user_id %>
