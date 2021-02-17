@@ -1,0 +1,26 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Retweet original</h5>
+                    
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    
+                    <%= form_with(url:retweet_tweet_path(original)) do |form| %>
+                      
+                        <div class="field">
+                          <%= form.text_field :content , class:"form-control border border-light", placeholder:"What's happening?" , :required => true%>
+                        </div>
+                        
+                        <div><hr class="border border-1"></div>
+                        <div class="actions d-flex justify-content-end">
+                          <%= form.submit "Tweet", class:"btn btn-outline-info rounded-pill" %>
+                        </div>
+                      <% end %>
+
+                    </div>
+                  </div>
+                </div>
+</div>
