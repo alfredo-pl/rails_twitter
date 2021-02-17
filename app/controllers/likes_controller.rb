@@ -7,7 +7,7 @@ class LikesController < ApplicationController
         else
         @tweet.likes.create(user_id: current_user.id)
         end
-        redirect_to tweet_path(@tweet)
+        redirect_to root_path
     end
     def destroy
         if !(already_liked?)
@@ -15,7 +15,7 @@ class LikesController < ApplicationController
         else
           @like.destroy
         end
-        redirect_to tweet_path( @tweet )
+        redirect_to root_path
     end
    
     private
