@@ -63,13 +63,13 @@
               <%= tweet.likes.count %> <%= (tweet.likes.count) == 1 ? 'Like' : 'Likes'%>
               
               
-              <a id="<%= tweet.id %>"type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" onClick="setId(event)">
-               <i class="fas fa-retweet"></i>
-              </a>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Retweet
+              </button>
                <!--RESOLVER PROBLEMA CON EL ID PARA EL TWEET ORIGINAL-->
               <%= render 'retweet', original: pre %>
               <!--retweet con el mismo contenido-->
-              
+              <%= link_to 'Retweet', retweet_tweet_path(tweet.id), method: :post %>
                <%= tweet.retweets.count %> <%= (tweet.retweets.count) == 1 ? 'Retweet' : 'Retweet'%>   
               <%=time_ago_in_words(tweet.created_at)%>
           </div>
