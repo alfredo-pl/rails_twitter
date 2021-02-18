@@ -1,5 +1,5 @@
 class TweetsController < ApplicationController
-  before_action :set_tweet, only: %i[ show edit update destroy retweet]
+  before_action :set_tweet, only: %i[ show edit update destroy]
 
   # GET /tweets or /tweets.json
   def index
@@ -22,12 +22,6 @@ class TweetsController < ApplicationController
   def edit
   end
 
-  def retweet
-    original = Tweet.find(params[:id])
-     @retweet = Tweet.new(user_id: current_user.id, content: original.content, tweet_id: original.id)
-    @retweet.save
-    redirect_to root_path
-  end
   # POST /tweets or /tweets.json
   def create
     @tweet = Tweet.new(tweet_params.merge(user: current_user))
