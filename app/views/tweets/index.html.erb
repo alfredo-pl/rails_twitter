@@ -1,7 +1,5 @@
 <!--<p id="notice"><%= notice %></p>-->
-
-<h1>Tweets</h1>
-
+<hr>
 <div class="row">
 <div class="col-3"></div>
 
@@ -25,10 +23,9 @@
               <ul class="navbar-nav me-5">
                 <li class="nav-item">
                   <a class="nav-link" href="#" id="navbarDropdownTweet" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-ellipsis-h"></i>
+                    <i class="fas fa-ellipsis-h menu-tweet rounded-circle" style="padding:6px"></i>
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdownTweet">
-                    <li> <%= link_to 'Show', tweet , class:"dropdown-item"%></li>
                     <li><%= link_to 'Edit', edit_tweet_path(tweet), class:"dropdown-item" %></li>
                     <li><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' }, class:"dropdown-item" %> </li>
                   </ul>
@@ -36,6 +33,7 @@
               </ul>
             </div>
           <% end %>
+          <!--END DEL MENU-->
           <% if tweet.perfil_retweet%>
           <div class="card p-4 m-auto w-75">
             <div class="row">
@@ -51,27 +49,27 @@
         <!--END DEL RETWEET-->
       
         <div class="d-flex align-items-end justify-content-around pt-3">
-        
+              <div class="d-flex">
             <% pre_like = tweet.likes.find { |like| like.user_id == current_user.id} %>
               
               <% if pre_like %>
-                <%= link_to(tweet_like_path(tweet.id, pre_like),method: :delete)do%> <i class="fas fa-heart"></i><% end %>
+                <%= link_to(tweet_like_path(tweet.id, pre_like),class: "btn rounded-circle ilike",method: :delete)do%> <i class="fas fa-heart"></i><% end %>
               <% else %>
-                <%= link_to(tweet_likes_path(tweet.id), method: :post)do%><i class="far fa-heart"></i><% end %>
+                <%= link_to(tweet_likes_path(tweet.id),class: "btn rounded-circle like", method: :post)do%><i class="far fa-heart"></i><% end %>
               <% end %>
-              <% pre = tweet.id %>
-              <%= tweet.likes.count %> <%= (tweet.likes.count) == 1 ? 'Like' : 'Likes'%>
               
-              
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Retweet
+              <p><%= tweet.likes.count %> <%= (tweet.likes.count) == 1 ? 'Like' : 'Likes'%></p>
+              </div>
+              <div class="d-flex">
+              <button type="button" class="btn rounded-circle retweet" data-bs-toggle="modal" data-bs-target="#exampleModal"onClick="setId(event)">
+                <i class="fas fa-retweet" id="<%= tweet.id %>"></i>
               </button>
-               <!--RESOLVER PROBLEMA CON EL ID PARA EL TWEET ORIGINAL-->
-              <%= render 'retweet', original: pre %>
-              <!--retweet con el mismo contenido-->
-              <%= link_to 'Retweet', retweet_tweet_path(tweet.id), method: :post %>
-               <%= tweet.retweets.count %> <%= (tweet.retweets.count) == 1 ? 'Retweet' : 'Retweet'%>   
-              <%=time_ago_in_words(tweet.created_at)%>
+          
+              <%= render 'retweet' %>
+             
+               <p><%= tweet.retweets.count %> <%= (tweet.retweets.count) == 1 ? 'Retweet' : 'Retweet'%> </p>  
+               </div>
+              <p class="time"><%= link_to time_ago_in_words(tweet.created_at), tweet %></p>
           </div>
         <!--END DEL CLASS FLEX-->
         </div>
@@ -90,34 +88,60 @@
               <div class="col-2">
                 <img src="<%= tweet.photo_user %>"class="w-75 rounded-circle"/>
               </div>
-              <div class="col-10">
-                <p><%= tweet.content %></p>
+               <div class="col-9">
+                <p><strong class="me-2">@<%= tweet.name_user %></strong><%= tweet.content %></p>
               </div>
-              <div class="d-flex align-items-end justify-content-around pt-3">
+
+               <% if tweet.perfil_retweet%>
+                <div class="card p-4 m-auto w-75">
+                  <div class="row">
+                    <div class="col-2">
+                    <img src=" <%= tweet.perfil_retweet%>"class="w-75 rounded-circle"/>
+                    </div>
+                    <div class="col-10">
+                      <p><strong class="me-2">@<%= tweet.perfil_retweet_name %></strong><%= tweet.perfil_retweet_content %></p>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
               
-                <% if current_user && current_user.id == tweet.user_id %>
-                  <%= link_to 'Show', tweet %>
-                  <%= link_to 'Edit', edit_tweet_path(tweet) %>
-                  <%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %> 
-                <% elsif current_user %>
-                  <%= link_to 'Show', tweet %>
-                <% else %>
-                  <%= link_to 'Show', tweet %>
-                <% end %>
+              <div class="d-flex align-items-end justify-content-around pt-3">
+              <div class="d-flex">
+
+               <% pre = tweet.likes.count%>
+              
+              <% if pre > 0  %>
+               <a href="#" class="btn rounded-circle ilike"><i class="fas fa-heart"></i></a>
+              <% else %>
+               <a href="#" class="btn rounded-circle like"><i class="far fa-heart"></i></a>
+              <% end %>
+             
+              <p><%= tweet.likes.count %> <%= (tweet.likes.count) == 1 ? 'Like' : 'Likes'%></p>
               </div>
+              <div class="d-flex">
+              
+                 <button type="button" class="btn rounded-circle retweet" >
+                <i class="fas fa-retweet"></i>
+              </button>
+             
+               <p><%= tweet.retweets.count %> <%= (tweet.retweets.count) == 1 ? 'Retweet' : 'Retweet'%> </p>  
+               </div>
+              <p class="time"><%= link_to time_ago_in_words(tweet.created_at), tweet %></p>
+          </div>
+        <!--END DEL CLASS FLEX-->
             </div>
             </div>
             <% end %>
              <!--END DEL EACH TWEETS-->
       <% end %>
        <!--END DEL IF PRINCIPAL-->
+       <%= paginate @tweets %>
     </div>
      <!--END DEL COL-6-->
+     
 <div class="col-3"></div>
-
-
 </div>
-<%= paginate @tweets %>
+
  <!--END DEL ROW PRINCIPAL-->
 <br>
 
