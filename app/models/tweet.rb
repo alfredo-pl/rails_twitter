@@ -29,4 +29,9 @@ class Tweet < ApplicationRecord
     content.first
   end
 
+  def all_like
+    id_users=  Like.references(:tweets).where(tweet_id: id).pluck :user_id
+    users= id_users.map{|user|User.references(:tweets).where(id: user)}
+    
+  end
 end
