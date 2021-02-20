@@ -15,16 +15,16 @@
           <!-- ¡Pending implementation! Should work toggling between sign_in and sign_out -->
            <% if current_user %>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><%=link_to 'My Profile', edit_user_registration_path, class:"dropdown-item"%></li>
+            <li><%=link_to 'Mi Perfil', edit_user_registration_path, class:"dropdown-item"%></li>
             <li><hr class="dropdown-divider"></li>
-            <li> <%=link_to 'Log out', destroy_user_session_path, method: :delete, class:"dropdown-item"%></li>
+            <li> <%=link_to 'Cerrar Sesión', destroy_user_session_path, method: :delete, class:"dropdown-item"%></li>
           </ul>
 
           <%else%>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li> <%=link_to 'Register', new_user_registration_path, class:"dropdown-item"%></li>
+            <li> <%=link_to 'Registrarme', new_user_registration_path, class:"dropdown-item"%></li>
             <li><hr class="dropdown-divider"></li>
-            <li> <%=link_to 'Log in', new_user_session_path, class:"dropdown-item"%></li>
+            <li> <%=link_to 'Iniciar Sesión', new_user_session_path, class:"dropdown-item"%></li>
           </ul>
          <%end%>
       </li>
