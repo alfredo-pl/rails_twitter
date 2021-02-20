@@ -1,26 +1,33 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<div class="align-middle mt-5 pt-5">
+<h2 class="text-center">Iniciar Sesión</h2>
+<div class="d-flex justify-content-center mt-5">
+<%= form_for(resource, as: resource_name, url: session_path(resource_name),html: {class: "border rounded-3 p-4 "} ) do |f| %>
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label :email , class:"form-label"%><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
+    <%= f.label :password, class:"form-label" %><br />
+    <%= f.password_field :password, autocomplete: "current-password", class:"form-control" %>
   </div>
 
   <% if devise_mapping.rememberable? %>
     <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+      <%= f.check_box :remember_me , class:"form-check-input" %>
+      <%= f.label :remember_me , class:"form-check-label"%>
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
+  <div class="actions text-center">
+    <%= f.submit "Iniciar Sesión" , class:"rounded-pill btn btn-info text-white px-5" %>
   </div>
 <% end %>
+</div>
+<div class="text-center">
+<%= link_to 'Regístrate', new_user_registration_path , class:"nav-link"%>
+<%= link_to '¿Olvidaste tu contraseña?', new_user_password_path, class:"nav-link"%>
 
-<%= render "devise/shared/links" %>
+</div>
+</div>
+
