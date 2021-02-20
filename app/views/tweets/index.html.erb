@@ -67,7 +67,7 @@
           
               <%= render 'retweet' %>
              
-               <p><%= tweet.retweets.count %> <%= (tweet.retweets.count) == 1 ? 'Retweet' : 'Retweet'%> </p>  
+               <p><%= tweet.retweets.count %> <%= (tweet.retweets.count) == 1 ? 'Retweet' : 'Retweets'%> </p>  
                </div>
               <p class="time"><%= link_to time_ago_in_words(tweet.created_at), tweet %></p>
           </div>
@@ -124,7 +124,7 @@
                 <i class="fas fa-retweet"></i>
               </button>
              
-               <p><%= tweet.retweets.count %> <%= (tweet.retweets.count) == 1 ? 'Retweet' : 'Retweet'%> </p>  
+               <p><%= tweet.retweets.count %> <%= (tweet.retweets.count) == 1 ? 'Retweet' : 'Retweets'%> </p>  
                </div>
               <p class="time"><%= link_to time_ago_in_words(tweet.created_at), tweet %></p>
           </div>
