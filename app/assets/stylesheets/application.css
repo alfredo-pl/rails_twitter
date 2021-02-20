@@ -16,12 +16,18 @@
 
 body{
     margin: 0px!important;
+    font-family: 'Nunito', sans-serif;
 }
 p{
     margin-top: revert;
     margin-bottom: revert;
 }
-
+strong{
+    font-weight: 700;
+}
+label{
+    font-weight: 700;
+}
 /* BUTTON LIKE*/
 .ilike{color:#cc1820!important;}
 
