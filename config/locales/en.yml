@@ -31,3 +31,9 @@
 
 en:
   hello: "Hello world"
+  views:
+    pagination:
+      previous: "&lt; Mostrar Tweets anteriores"
+      next: "Mostrar más Tweets &gt;"
+      last: "Últimos Tweets >>"
+      first: "<< Primeros Tweets"
