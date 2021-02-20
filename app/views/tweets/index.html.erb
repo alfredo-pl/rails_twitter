@@ -1,10 +1,10 @@
 <!--<p id="notice"><%= notice %></p>-->
-<hr>
-<div class="row">
+<div class="row pt-5">
 <div class="col-3"></div>
 
 <div class="col-6">
   <% if current_user %>
+  <h2>Home</h2>
     <div class="card my-2 p-2">
       <%= render 'form', tweet: @tweet %>
     </div>
@@ -15,7 +15,7 @@
             <img src="<%= tweet.photo_user %>"class="w-75 rounded-circle"/>
           </div>
           <div class="col-9">
-            <p><strong class="me-2">@<%= tweet.name_user %></strong><%= tweet.content %></p>
+            <p><strong class="me-2">@<%= tweet.name_user.capitalize %></strong><%= tweet.content %></p>
           </div>
 
           <% if current_user && current_user.id == tweet.user_id %>
@@ -41,7 +41,7 @@
                <img src=" <%= tweet.perfil_retweet%>"class="w-75 rounded-circle"/>
               </div>
               <div class="col-10">
-                <p><strong class="me-2">@<%= tweet.perfil_retweet_name %></strong><%= tweet.perfil_retweet_content %></p>
+                <p><strong class="me-2">@<%= tweet.perfil_retweet_name.capitalize %></strong><%= tweet.perfil_retweet_content %></p>
               </div>
             </div>
           </div>
@@ -89,7 +89,7 @@
                 <img src="<%= tweet.photo_user %>"class="w-75 rounded-circle"/>
               </div>
                <div class="col-9">
-                <p><strong class="me-2">@<%= tweet.name_user %></strong><%= tweet.content %></p>
+                <p><strong class="me-2">@<%= tweet.name_user.capitalize %></strong><%= tweet.content %></p>
               </div>
 
                <% if tweet.perfil_retweet%>
@@ -99,7 +99,7 @@
                     <img src=" <%= tweet.perfil_retweet%>"class="w-75 rounded-circle"/>
                     </div>
                     <div class="col-10">
-                      <p><strong class="me-2">@<%= tweet.perfil_retweet_name %></strong><%= tweet.perfil_retweet_content %></p>
+                      <p><strong class="me-2">@<%= tweet.perfil_retweet_name.capitalize %></strong><%= tweet.perfil_retweet_content %></p>
                     </div>
                   </div>
                 </div>
