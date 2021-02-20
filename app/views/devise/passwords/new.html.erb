@@ -1,16 +1,23 @@
-<h2>Forgot your password?</h2>
-
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+<div class="align-middle mt-5 pt-5">
+<h2 class="text-center">¿Olvidaste tu contraseña?</h2>
+<div class="d-flex justify-content-center mt-5">
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post,class: "border rounded-3 p-4 " }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.label :email , class:"form-label" %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control" %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
+  <div class="actions text-center">
+    <%= f.submit "Reestablecer contraseña" , class:"rounded-pill btn btn-info text-white px-5" %>
   </div>
 <% end %>
+</div>
 
-<%= render "devise/shared/links" %>
+<div class="text-center">
+<%= link_to 'Iniciar Sesión', user_session_path, class:"nav-link"%>
+<%= link_to 'Regístrate', new_user_registration_path , class:"nav-link"%>
+</div>
+</div>
+
