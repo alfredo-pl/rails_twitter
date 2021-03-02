@@ -17,7 +17,17 @@
             <img src="<%= tweet.photo_user %>"class="w-75 rounded-circle"/>
           </div>
           <div class="col-9">
-            <p><strong class="me-2">@<%= tweet.name_user.capitalize %></strong><%= tweet.content %></p>
+            <p>
+            <strong class="me-2">@<%= tweet.name_user.capitalize %></strong>
+            <% content = tweet.content.split(" ") %>
+            <%content.each do |x| %>
+              <% if x.first == "#"%>
+                <a href="#" class="hashtag"><%=x%></a>
+              <% else %>
+                <%=x%>
+              <% end %>
+            <% end %>
+            </p>
           </div>
 
           <% if current_user && current_user.id == tweet.user_id %>
@@ -43,7 +53,17 @@
                <img src=" <%= tweet.perfil_retweet%>"class="w-75 rounded-circle"/>
               </div>
               <div class="col-10">
-                <p><strong class="me-2">@<%= tweet.perfil_retweet_name.capitalize %></strong><%= tweet.perfil_retweet_content %></p>
+                <p><strong class="me-2">@<%= tweet.perfil_retweet_name.capitalize %></strong>
+                
+                  <% content = tweet.perfil_retweet_content.split(" ") %>
+                  <%content.each do |x| %>
+                    <% if x.first == "#"%>
+                      <a href="#" class="hashtag"><%=x%></a>
+                    <% else %>
+                      <%=x%>
+                    <% end %>
+                  <% end %>
+                </p>
               </div>
             </div>
           </div>
@@ -91,7 +111,17 @@
                 <img src="<%= tweet.photo_user %>"class="w-75 rounded-circle"/>
               </div>
                <div class="col-9">
-                <p><strong class="me-2">@<%= tweet.name_user.capitalize %></strong><%= tweet.content %></p>
+                <p>
+                 <strong class="me-2">@<%= tweet.name_user.capitalize %></strong>
+                  <% content = tweet.content.split(" ") %>
+                  <%content.each do |x| %>
+                    <% if x.first == "#"%>
+                      <a href="#" class="hashtag"><%=x%></a>
+                    <% else %>
+                      <%=x%>
+                    <% end %>
+                  <% end %>
+                </p>
               </div>
 
                <% if tweet.perfil_retweet%>
@@ -101,7 +131,17 @@
                     <img src=" <%= tweet.perfil_retweet%>"class="w-75 rounded-circle"/>
                     </div>
                     <div class="col-10">
-                      <p><strong class="me-2">@<%= tweet.perfil_retweet_name.capitalize %></strong><%= tweet.perfil_retweet_content %></p>
+                      <p>
+                      <strong class="me-2">@<%= tweet.perfil_retweet_name.capitalize %></strong>
+                      <% content = tweet.perfil_retweet_content.split(" ") %>
+                      <%content.each do |x| %>
+                        <% if x.first == "#"%>
+                          <a href="#" class="hashtag"><%=x%></a>
+                        <% else %>
+                          <%=x%>
+                        <% end %>
+                      <% end %>
+                      </p>
                     </div>
                   </div>
                 </div>
