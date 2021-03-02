@@ -1,6 +1,5 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: %i[ show edit update destroy]
-
   # GET /tweets or /tweets.json
   def index
    # @tweets = Tweet.all.order(created_at: :desc).page(params[:page])
@@ -70,6 +69,13 @@ class TweetsController < ApplicationController
     @tweets = Tweet.api_news
     render json: @tweets
   end
+
+  def apibetween
+    @q = Tweet.dates(params[:date1], params[:date2])
+    @tweets = Tweet.frame(@q)
+    render json: @tweets
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tweet
