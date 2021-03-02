@@ -10,7 +10,9 @@ class TweetsController < ApplicationController
         @q = Tweet.tweets_for_me(current_user).order(created_at: :desc).ransack(params[:q])
         @tweets = @q.result(distinct: true).page(params[:page])
       else
-      @tweets = Tweet.all.order(created_at: :desc).page(params[:page])
+
+      @q = Tweet.all.order(created_at: :desc).ransack(params[:q])
+      @tweets = @q.result(distinct: true).page(params[:page])
     end
   end
 
