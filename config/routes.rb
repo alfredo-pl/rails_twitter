@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
   get 'api/news' , to: 'tweets#apinews'
+  get 'api/:date1/:date2', to: 'tweets#apibetween'
   root 'tweets#index'
  
 
