@@ -13,8 +13,15 @@ class Tweet < ApplicationRecord
 
   def self.api_news
     allTweets = Tweet.all.order(created_at: :desc).limit(50)
-    
-    st = allTweets.map{|t| info ={
+    frame(allTweets)
+  end
+  
+  def self.dates(date1,date2)
+    Tweet.where("created_at >= :start_date AND created_at <= :end_date",{start_date: date1, end_date: date2})
+  end
+
+  def self.frame(all)
+    st = all.map{|t| info ={
       "id" => t.id,
       "content"=> t.content,
       "user_id"=> t.user_id,
