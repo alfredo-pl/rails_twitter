@@ -1,6 +1,8 @@
 <!--<p id="notice"><%= notice %></p>-->
 <div class="row pt-5">
-<div class="col-3"></div>
+<div class="col-3">
+
+</div>
 
 <div class="col-6">
   <% if current_user %>
@@ -139,7 +141,17 @@
     </div>
      <!--END DEL COL-6-->
      
-<div class="col-3"></div>
+<div class="col-3">
+<h2 class="text-center">Search Tweet</h2>
+  <%= search_form_for @q do |f| %>
+    <div class="form-group mb-2">
+    <%= f.search_field :content_cont, class: "form-control", placeholder: "Search text" %>
+    </div>
+
+    <%= f.submit "Search", class: "btn btn-info text-white float-end" %>
+  <% end %>
+
+</div>
 </div>
 
  <!--END DEL ROW PRINCIPAL-->
