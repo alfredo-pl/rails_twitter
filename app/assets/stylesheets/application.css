@@ -112,4 +112,9 @@ pre {
   
   label {
     display: block; }
-  
+
+    .hashtag{
+  font-weight: 600;
+    font-style: italic;
+    text-decoration: none;
+}  
