@@ -11,6 +11,19 @@ class Tweet < ApplicationRecord
    Tweet.where(user_id: friend)
   end
 
+  def self.api_news
+    allTweets = Tweet.all.order(created_at: :desc).limit(50)
+    
+    st = allTweets.map{|t| info ={
+      "id" => t.id,
+      "content"=> t.content,
+      "user_id"=> t.user_id,
+      "like_count" => t.likes.count,
+      "retweets_count" => t.retweets.count,
+      "rewtitted_from" =>t.tweet_id
+    }}
+  end
+
   def photo_user
    photo = User.references(:tweets).where(id: user_id).pluck :photo
     photo.first

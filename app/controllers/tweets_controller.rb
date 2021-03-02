@@ -66,6 +66,10 @@ class TweetsController < ApplicationController
     end
   end
 
+  def apinews
+    @tweets = Tweet.api_news
+    render json: @tweets
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tweet
