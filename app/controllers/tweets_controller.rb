@@ -5,9 +5,11 @@ class TweetsController < ApplicationController
   def index
    # @tweets = Tweet.all.order(created_at: :desc).page(params[:page])
     @tweet = Tweet.new
+   
     if current_user
-      @tweets = Tweet.tweets_for_me(current_user).order(created_at: :desc).page(params[:page])
-    else
+        @q = Tweet.tweets_for_me(current_user).order(created_at: :desc).ransack(params[:q])
+        @tweets = @q.result(distinct: true).page(params[:page])
+      else
       @tweets = Tweet.all.order(created_at: :desc).page(params[:page])
     end
   end
