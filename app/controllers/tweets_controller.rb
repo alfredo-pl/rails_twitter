@@ -1,5 +1,8 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: %i[ show edit update destroy]
+  before_action :authenticate_user!, only: %i[ apinews apibetween]
+  skip_before_action :verify_authenticity_token, only: %i[apiCreateTweet]
+
   # GET /tweets or /tweets.json
   def index
    # @tweets = Tweet.all.order(created_at: :desc).page(params[:page])
@@ -74,6 +77,17 @@ class TweetsController < ApplicationController
     @q = Tweet.dates(params[:date1], params[:date2])
     @tweets = Tweet.frame(@q)
     render json: @tweets
+  end
+
+  def apiCreateTweet
+    @tweet = Tweet.new(tweet_params)
+
+      if @tweet.save
+        render json: @tweet
+      else
+        render json: @tweet.errors, status: :unprocessable_entity
+      end
+    
   end
 
   private
