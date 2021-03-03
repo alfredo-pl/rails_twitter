@@ -2,6 +2,8 @@ class TweetsController < ApplicationController
   before_action :set_tweet, only: %i[ show edit update destroy]
   before_action :authenticate_user!, only: %i[ apinews apibetween]
   skip_before_action :verify_authenticity_token, only: %i[apiCreateTweet]
+  include ActionController::HttpAuthentication::Basic::ControllerMethods
+  http_basic_authenticate_with name: "hello", password: "world", only: %i[apiCreateTweet]
 
   # GET /tweets or /tweets.json
   def index
