@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   }
   get 'api/news' , to: 'tweets#apinews'
   get 'api/:date1/:date2', to: 'tweets#apibetween'
+  post 'api/tweet', to: 'tweets#apiCreateTweet'
   root 'tweets#index'
  
 
