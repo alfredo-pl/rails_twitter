@@ -1,0 +1,215 @@
+<!--<p id="notice"><%= notice %></p>-->
+<div class="row pt-5">
+<div class="col-3">
+<div class="d-flex justify-content-end pt-3 me-3">
+<%= link_to( tweets_path,class:"rounded-circle p-3 back") do%><i class="fas fa-arrow-left fs-4 text-info "></i> <% end %>
+</div>
+</div>
+
+<div class="col-6">
+  <% if current_user %>
+  <h2>hashtag</h2>
+   
+  <% @tweets.each do |tweet| %>
+      <div class="card my-2 p-2">
+        <div class="row ">
+          <div class="col-2">
+            <img src="<%= tweet.photo_user %>"class="w-75 rounded-circle"/>
+          </div>
+          <div class="col-9">
+            <p>
+            <strong class="me-2">@<%= tweet.name_user.capitalize %></strong>
+            <% content = tweet.content.split(" ") %>
+
+          
+
+           <%content.each do |x| %>
+                <% if x.first == "#"%>
+                    <%= search_form_for @q , url: hashtag_path do |f| %>
+                       <%= f.search_field :content_cont, class: "visually-hidden", value:"#{x}" %>
+                       <%= f.submit "#{x}", class: "hashtag" %>
+                        <% end %>
+                    <% else %>
+                      <%=x%>
+                    <% end %>
+            
+            <% end %>
+            </p>
+          </div>
+
+          <% if current_user && current_user.id == tweet.user_id %>
+            <div class="col-1">
+              <ul class="navbar-nav me-5">
+                <li class="nav-item">
+                  <a class="nav-link" href="#" id="navbarDropdownTweet" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-ellipsis-h menu-tweet rounded-circle" style="padding:6px"></i>
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdownTweet">
+                    <li><%= link_to 'Editar', edit_tweet_path(tweet), class:"dropdown-item" %></li>
+                    <li><%= link_to 'Eliminar', tweet, method: :delete, data: { confirm: 'Are you sure?' }, class:"dropdown-item" %> </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          <% end %>
+          <!--END DEL MENU-->
+          <% if tweet.perfil_retweet%>
+          <div class="card p-4 m-auto w-75">
+            <div class="row">
+              <div class="col-2">
+               <img src=" <%= tweet.perfil_retweet%>"class="w-75 rounded-circle"/>
+              </div>
+              <div class="col-10">
+                <p><strong class="me-2">@<%= tweet.perfil_retweet_name.capitalize %></strong>
+                
+                  <% content = tweet.perfil_retweet_content.split(" ") %>
+                  <%content.each do |x| %>
+                <% if x.first == "#"%>
+                    <%= search_form_for @q , url: hashtag_path do |f| %>
+                       <%= f.search_field :content_cont, class: "visually-hidden", value:"#{x}" %>
+                       <%= f.submit "#{x}", class: "hashtag" %>
+                        <% end %>
+                    <% else %>
+                      <%=x%>
+                    <% end %>
+                  <% end %>
+                </p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <!--END DEL RETWEET-->
+      
+        <div class="d-flex align-items-end justify-content-around pt-3">
+              <div class="d-flex align-items-center">
+            <% pre_like = tweet.likes.find { |like| like.user_id == current_user.id} %>
+              
+              <% if pre_like %>
+                <%= link_to(tweet_like_path(tweet.id, pre_like),class: "btn rounded-circle ilike",method: :delete)do%> <i class="fas fa-heart"></i><% end %>
+              <% else %>
+                <%= link_to(tweet_likes_path(tweet.id),class: "btn rounded-circle like", method: :post)do%><i class="far fa-heart"></i><% end %>
+              <% end %>
+              
+              <p><%= tweet.likes.count %> <%= (tweet.likes.count) == 1 ? 'Like' : 'Likes'%></p>
+              </div>
+              <div class="d-flex">
+              <button type="button" class="btn rounded-circle retweet" data-bs-toggle="modal" data-bs-target="#exampleModal"onClick="setId(event)">
+                <i class="fas fa-retweet" id="<%= tweet.id %>"></i>
+              </button>
+          
+              <%= render 'retweet' %>
+             
+               <p><%= tweet.retweets.count %> <%= (tweet.retweets.count) == 1 ? 'Retweet' : 'Retweets'%> </p>  
+               </div>
+              <p class="time"><%= link_to time_ago_in_words(tweet.created_at), tweet %></p>
+          </div>
+        <!--END DEL CLASS FLEX-->
+        </div>
+      <!--END DEL ROW-->
+      </div>
+  <!--END DEL CARD-->
+    <% end %>
+    
+    <!--END DEL EACH TWEETS-->
+
+    <!--SI EL USUARIO NO ESTA LOGEADO-->
+    <% else %>
+        <% @tweets.each do |tweet| %>
+            <div class="card my-2 p-2">
+            <div class="row ">
+              <div class="col-2">
+                <img src="<%= tweet.photo_user %>"class="w-75 rounded-circle"/>
+              </div>
+               <div class="col-9">
+                <p>
+                 <strong class="me-2">@<%= tweet.name_user.capitalize %></strong>
+                  <% content = tweet.content.split(" ") %>
+                  <%content.each do |x| %>
+                <% if x.first == "#"%>
+                    <%= search_form_for @q , url: hashtag_path do |f| %>
+                       <%= f.search_field :content_cont, class: "visually-hidden", value:"#{x}" %>
+                       <%= f.submit "#{x}", class: "hashtag" %>
+                        <% end %>
+                    <% else %>
+                      <%=x%>
+                    <% end %>
+                  <% end %>
+                </p>
+              </div>
+
+               <% if tweet.perfil_retweet%>
+                <div class="card p-4 m-auto w-75">
+                  <div class="row">
+                    <div class="col-2">
+                    <img src=" <%= tweet.perfil_retweet%>"class="w-75 rounded-circle"/>
+                    </div>
+                    <div class="col-10">
+                      <p>
+                      <strong class="me-2">@<%= tweet.perfil_retweet_name.capitalize %></strong>
+                      <% content = tweet.perfil_retweet_content.split(" ") %>
+                      <%content.each do |x| %>
+                <% if x.first == "#"%>
+                    <%= search_form_for @q , url: hashtag_path do |f| %>
+                       <%= f.search_field :content_cont, class: "visually-hidden", value:"#{x}" %>
+                       <%= f.submit "#{x}", class: "hashtag" %>
+                        <% end %>
+                    <% else %>
+                      <%=x%>
+                    <% end %>
+                      <% end %>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+              
+              <div class="d-flex align-items-end justify-content-around pt-3">
+              <div class="d-flex align-items-center">
+
+               <% pre = tweet.likes.count%>
+              
+              <% if pre > 0  %>
+               <a href="#" class="btn rounded-circle ilike"><i class="fas fa-heart"></i></a>
+              <% else %>
+               <a href="#" class="btn rounded-circle like"><i class="far fa-heart"></i></a>
+              <% end %>
+             
+              <p><%= tweet.likes.count %> <%= (tweet.likes.count) == 1 ? 'Like' : 'Likes'%></p>
+              </div>
+              <div class="d-flex ">
+              
+                 <button type="button" class="btn rounded-circle retweet" >
+                <i class="fas fa-retweet"></i>
+              </button>
+             
+               <p><%= tweet.retweets.count %> <%= (tweet.retweets.count) == 1 ? 'Retweet' : 'Retweets'%> </p>  
+               </div>
+              <p class="time"><%= link_to time_ago_in_words(tweet.created_at), tweet %></p>
+          </div>
+        <!--END DEL CLASS FLEX-->
+            </div>
+            </div>
+            <% end %>
+             <!--END DEL EACH TWEETS-->
+      <% end %>
+       <!--END DEL IF PRINCIPAL-->
+       <%= paginate @tweets %>
+    </div>
+     <!--END DEL COL-6-->
+     
+<div class="col-3">
+<h2 class="text-center">Search Tweet</h2>
+  <%= search_form_for @q do |f| %>
+    <div class="form-group mb-2">
+    <%= f.search_field :content_cont, class: "form-control", placeholder: "Search text" %>
+    </div>
+
+    <%= f.submit "Search", class: "btn btn-info text-white float-end" %>
+  <% end %>
+
+</div>
+</div>
+
+ <!--END DEL ROW PRINCIPAL-->
+<br>
+
