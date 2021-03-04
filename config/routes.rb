@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   devise_for :users , controllers: {
     registrations: 'users/registrations'
   }
+  get 'hashtag/' , to: 'tweets#hashtag'
   get 'api/news' , to: 'tweets#apinews'
   get 'api/:date1/:date2', to: 'tweets#apibetween'
   post 'api/tweet', to: 'tweets#apiCreateTweet'
