@@ -70,6 +70,10 @@ class TweetsController < ApplicationController
     end
   end
 
+  def hashtag
+    @q = Tweet.all.order(created_at: :desc).ransack(params[:q])
+    @tweets = @q.result.page(params[:page])
+  end
   def apinews
     @tweets = Tweet.api_news
     render json: @tweets
