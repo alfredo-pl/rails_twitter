@@ -1,6 +1,22 @@
-<h1>Editing Tweet</h1>
 
+<hr>
+
+<div class="row">
+<div class="col-3">
+<div class="d-flex justify-content-end pt-3 me-3">
+<%= link_to( tweets_path,class:"rounded-circle p-3 back") do%><i class="fas fa-arrow-left fs-4 text-info "></i> <% end %>
+</div>
+</div>
+<div class="col-6">
+<br>
+<h2>Editing Tweet</h2>
 <%= render 'form', tweet: @tweet %>
+</div>
+     <!--END DEL COL-6-->
+     
+<div class="col-3"></div>
+</div>
 
-<%= link_to 'Show', @tweet %> |
-<%= link_to 'Back', tweets_path %>
+
+ <!--END DEL ROW PRINCIPAL-->
+<br>
