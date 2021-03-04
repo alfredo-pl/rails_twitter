@@ -21,11 +21,14 @@
             <strong class="me-2">@<%= tweet.name_user.capitalize %></strong>
             <% content = tweet.content.split(" ") %>
             <%content.each do |x| %>
-              <% if x.first == "#"%>
-                <a href="#" class="hashtag"><%=x%></a>
-              <% else %>
-                <%=x%>
-              <% end %>
+                <% if x.first == "#"%>
+                    <%= search_form_for @q , url: hashtag_path do |f| %>
+                       <%= f.search_field :content_cont, class: "visually-hidden", value:"#{x}" %>
+                       <%= f.submit "#{x}", class: "hashtag" %>
+                        <% end %>
+                    <% else %>
+                      <%=x%>
+                    <% end %>
             <% end %>
             </p>
           </div>
@@ -57,8 +60,11 @@
                 
                   <% content = tweet.perfil_retweet_content.split(" ") %>
                   <%content.each do |x| %>
-                    <% if x.first == "#"%>
-                      <a href="#" class="hashtag"><%=x%></a>
+                       <% if x.first == "#"%>
+                    <%= search_form_for @q , url: hashtag_path do |f| %>
+                       <%= f.search_field :content_cont, class: "visually-hidden", value:"#{x}" %>
+                       <%= f.submit "#{x}", class: "hashtag" %>
+                        <% end %>
                     <% else %>
                       <%=x%>
                     <% end %>
@@ -116,7 +122,10 @@
                   <% content = tweet.content.split(" ") %>
                   <%content.each do |x| %>
                     <% if x.first == "#"%>
-                      <a href="#" class="hashtag"><%=x%></a>
+                    <%= search_form_for @q , url: hashtag_path do |f| %>
+                       <%= f.search_field :content_cont, class: "visually-hidden", value:"#{x}" %>
+                       <%= f.submit "#{x}", class: "hashtag" %>
+                        <% end %>
                     <% else %>
                       <%=x%>
                     <% end %>
@@ -135,11 +144,14 @@
                       <strong class="me-2">@<%= tweet.perfil_retweet_name.capitalize %></strong>
                       <% content = tweet.perfil_retweet_content.split(" ") %>
                       <%content.each do |x| %>
-                        <% if x.first == "#"%>
-                          <a href="#" class="hashtag"><%=x%></a>
-                        <% else %>
-                          <%=x%>
+                           <% if x.first == "#"%>
+                    <%= search_form_for @q , url: hashtag_path do |f| %>
+                       <%= f.search_field :content_cont, class: "visually-hidden", value:"#{x}" %>
+                       <%= f.submit "#{x}", class: "hashtag" %>
                         <% end %>
+                    <% else %>
+                      <%=x%>
+                    <% end %>
                       <% end %>
                       </p>
                     </div>
@@ -183,7 +195,7 @@
      
 <div class="col-3">
 <h2 class="text-center">Search Tweet</h2>
-  <%= search_form_for @q do |f| %>
+  <%= search_form_for @q , url: hashtag_path do |f| %>
     <div class="form-group mb-2">
     <%= f.search_field :content_cont, class: "form-control", placeholder: "Search text" %>
     </div>
